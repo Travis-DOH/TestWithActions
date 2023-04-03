@@ -49,7 +49,6 @@ jobs:
           required: false
           path:
             ./download/remark-lint-report
-            required: false
       # Display structure of downloaded files
       - name: Display DL files
         run: ls -R
