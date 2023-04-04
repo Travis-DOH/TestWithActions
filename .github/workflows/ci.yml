@@ -46,7 +46,9 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: remark-lint-report
-          path: ./download/remark-lint-report
+          required: false
+          path:
+            ./download/remark-lint-report
       # Display structure of downloaded files
       - name: Display DL files
         run: ls -R
