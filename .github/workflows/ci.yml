@@ -33,7 +33,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: remark-lint-report
-          path: ../report/test.txt
+          path: report/test.txt
           retention-days: 2
           
   # job 2, "download-artifact"
