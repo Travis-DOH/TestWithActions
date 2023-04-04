@@ -15,8 +15,9 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  job_1:
   # Job 1 named "build"
-  build:
+    name: build
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -30,23 +31,26 @@ jobs:
           npm install remark-cli remark-preset-lint-consistent
           npx remark . --use remark-preset-lint-consistent --frail
       # Step 2, Upload the lint log to artifact storage
-      - uses: actions/upload-artifact@v3
+      - name: Upload markdown lint log
+        uses: actions/upload-artifact@v3
         with:
           name: remark-lint-report
           path: report/test.txt
           retention-days: 2
           
   # job 2, "download-artifact"
-  download-artifact:
-    needs: build
+  job_2:
+    name: download-artifact
+    needs: job_1
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     steps:
-      - name: Download lint artifact
-      - uses: actions/download-artifact@v3
+      - name: Download markdown lint log
+        uses: actions/download-artifact@v3
         with:
           name: remark-lint-report
-      - shell: bash
+      - name: Print result
+        shell: bash
         run: |
           value=`cat test.txt`
           echo The result is $value
